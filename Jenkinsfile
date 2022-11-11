@@ -36,10 +36,11 @@ pipeline {
           echo 'Running Unit Tets on worker app..'
           dir('worker'){
             sh 'npm test'
-           }
+          }
 
-          }      
-
+        }      
+      }
+    }  
   post{
     always{
         echo 'Building pipeline for react is completed..'
