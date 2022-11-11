@@ -5,26 +5,26 @@ pipeline {
   stages{
       stage("build"){
         when{
-            changeset "**/worker/**"
+            changeset "**/jenkins/**"
           }
 
         agent{
           docker{
-            image 'maven:3.6.1-jdk-8-slim'
-            args '-v $HOME/.m2:/root/.m2'
+            image 'node:current-alpine3.16'
+            args '-p 3000:3000'
           }
         }
 
         steps{
-          echo 'Compiling worker app..'
-          dir('worker'){
-            sh 'mvn compile'
+          echo 'Compiling sample react app..'
+          dir('.'){
+            sh 'npm install'
           }
         }
       }
       stage("test"){
         when{
-          changeset "**/worker/**"
+          changeset "**/jenkins/**"
         }
         agent{
           docker{
