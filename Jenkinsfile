@@ -3,7 +3,7 @@ pipeline {
   agent none
 
   stages{
-      stage("Build"){
+      stage("build"){
         agent{
           docker{
             image 'node:current-alpine3.16'
