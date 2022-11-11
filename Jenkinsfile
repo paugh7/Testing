@@ -4,86 +4,32 @@ pipeline {
 
   stages{
       stage("build"){
-        when{
-            changeset "**/worker/**"
-          }
-
         agent{
           docker{
-            image 'maven:3.6.1-jdk-8-slim'
-            args '-v $HOME/.m2:/root/.m2'
+            image 'node:current-alpine3.16'
+            args '-p 3000:3000'
           }
         }
-
         steps{
-          echo 'Compiling worker app..'
-          dir('worker'){
-            sh 'mvn compile'
-          }
+          echo 'Compiling sample react app..'
+            sh 'npm install'
         }
       }
       stage("test"){
-        when{
-          changeset "**/worker/**"
-        }
         agent{
           docker{
-            image 'maven:3.6.1-jdk-8-slim'
-            args '-v $HOME/.m2:/root/.m2'
+            image 'node:current-alpine3.16'
           }
         }
         steps{
           echo 'Running Unit Tets on worker app..'
-          dir('worker'){
-            sh 'mvn clean test'
-           }
-
-          }
+            sh 'npm test'
+        }     
       }
-      stage("package"){
-        when{
-          branch 'master'
-          changeset "**/worker/**"
-        }
-        agent{
-          docker{
-            image 'maven:3.6.1-jdk-8-slim'
-            args '-v $HOME/.m2:/root/.m2'
-          }
-        }
-        steps{
-          echo 'Packaging worker app'
-          dir('worker'){
-            sh 'mvn package -DskipTests'
-            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-          }
-
-        }
-      }
-
-      stage('docker-package'){
-          agent any
-          when{
-            changeset "**/worker/**"
-            branch 'master'
-          }
-          steps{
-            echo 'Packaging worker app with docker'
-            script{
-              docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-                  def workerImage = docker.build("initcron/worker:v${env.BUILD_ID}", "./worker")
-                  workerImage.push()
-                  workerImage.push("${env.BRANCH_NAME}")
-                  workerImage.push("latest")
-              }
-            }
-          }
-      }
-  }
-
+    }  
   post{
     always{
-        echo 'Building multibranch pipeline for worker is completed..'
+        echo 'Building pipeline for react is completed..'
     }
   }
 }
