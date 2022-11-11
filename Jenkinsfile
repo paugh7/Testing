@@ -4,10 +4,6 @@ pipeline {
 
   stages{
       stage("build"){
-        when{
-            changeset "**/jenkins/**"
-          }
-
         agent{
           docker{
             image 'node:current-alpine3.16'
@@ -23,9 +19,6 @@ pipeline {
         }
       }
       stage("test"){
-        when{
-          changeset "**/jenkins/**"
-        }
         agent{
           docker{
             image 'maven:3.6.1-jdk-8-slim'
