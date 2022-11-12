@@ -22,7 +22,7 @@ pipeline {
           }
         }
         steps{
-          echo 'Running Unit Tets on worker app..'
+          echo 'Running Unit Tets on Node.js app..'
             sh 'npm install'
             sh 'npm test'
         }     
