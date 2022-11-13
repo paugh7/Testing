@@ -22,8 +22,8 @@ pipeline {
           }
         }
         steps{
-          echo 'Running Unit Tets on worker app..'
-            sh 'npm install'
+          echo 'Running Unit Tets on Node.js app..'
+            sh 'npm install --save-dev @testing-library/react'
             sh 'npm test'
         }     
       }
