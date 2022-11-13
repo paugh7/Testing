@@ -23,7 +23,7 @@ pipeline {
         }
         steps{
           echo 'Running Unit Tets on Node.js app..'
-            sh 'npm install'
+            sh 'npm install --save-dev @testing-library/react'
             sh 'npm test'
         }     
       }
