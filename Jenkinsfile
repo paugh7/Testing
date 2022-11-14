@@ -39,8 +39,7 @@ pipeline {
               }
             }
           }
-      }
-    }  
+      }  
   post{
     always{
         echo 'Building pipeline for react is completed..'
