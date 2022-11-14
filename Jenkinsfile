@@ -25,7 +25,8 @@ pipeline {
           echo 'Running Unit Tets on Node.js app..'
             sh 'npm install --save-dev @testing-library/react'
             sh 'npm test'
-        }     
+        }  
+      }   
       stage('docker-package'){
           agent any
             steps{
@@ -38,8 +39,9 @@ pipeline {
                   workerImage.push("latest")
               }
             }
-          }
+        }
       }  
+  }           
   post{
     always{
         echo 'Building pipeline for react is completed..'
