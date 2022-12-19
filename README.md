@@ -1,2 +1,2 @@
-# Testing [![Build Status](http://jenkins.yeetbox.org:32000/buildStatus/icon?job=Test+branch%2Fmain)](http://jenkins.yeetbox.org:32000/job/Test%20branch/job/main/)
+# Testing [![Build Status](http://jenkins.yeetbox.org:8080/buildStatus/icon?job=test+01%2Fmain)](http://jenkins.yeetbox.org:8080/job/test%2001/job/main/)
 Repo to test Jenkins based CI pipelines
